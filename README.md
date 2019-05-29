@@ -1,148 +1,111 @@
 # Assignment-STM
 STM Assignment
-Containing Console Application
+Containing Unit tests
 ..........................
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assignment1;
+using NUnit.Framework;
 
-namespace Assignment1
+namespace Assignment_tests
 {
-    class Program
+    [TestFixture]
+    class Assignment_tests
     {
-        public static int ValidateSelection()
+        [Test]
+        public void GetRectangleLength_InputLength10_expectedResultEquals10()
         {
-            string givenInput = "";
-            bool validMenu = false;
-            while (validMenu == false)
-            {
-                Console.WriteLine("1 = Get Rectangle Length");
-                Console.WriteLine("2 = Change Length of Rectangle");
-                Console.WriteLine("3 = Get Rectangle Width");
-                Console.WriteLine("4 = Change Width of Rectangle");
-                Console.WriteLine("5 = Get Rectangle Perimeter");
-                Console.WriteLine("6 = Get Rectangle Area");
-                Console.WriteLine("7 = Exit\n");
+            //Arrange
+            int l1 = 10;
+            int w1 = 8;
+            int expectedoutput = l1;
+            Rectangleclass testres = new Rectangleclass(l1, w1);
 
-                Console.WriteLine("Please select an option, by entering a number:\n");
-                givenInput = Console.ReadLine();
-                if (givenInput != "1" &&
-                    givenInput != "2" &&
-                    givenInput != "3" &&
-                    givenInput != "4" &&
-                    givenInput != "5" &&
-                    givenInput != "6" &&
-                    givenInput != "7")
-                {
-                    Console.WriteLine("That's not a valid menu option, please try again:\n");
-                }
-                else
-                {
-                    validMenu = true;
-                }
-            }
+            //Act
+            int actualoutput = testres.GetLength();
 
-            Console.WriteLine();
-            return int.Parse(givenInput);
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
         }
-        public static int ValidateInput(string Numbergiven)
+        [Test]
+        public void SetRectangleLength_InputLength33_expectedResultEquals33()
         {
-            int num = 1;
-            bool isValid = false;
+            //Arrange
+            int l1 = 33;
+            int w1 = 18;
+            int expectedoutput = l1;
+            Rectangleclass testres = new Rectangleclass(l1,w1);
 
-            while (isValid == false)
-            {
-                Console.WriteLine($"Please enter the {Numbergiven}:");
-                string givenInput = Console.ReadLine();
-                Console.WriteLine();
-                bool result = int.TryParse(givenInput, out num);
-                if (result == false)
-                {
-                    Console.WriteLine("That's not a valid input please, please try again.\n");
-                }
-                else
-                {
-                    isValid = true;
-                    Console.WriteLine($"Given number is : {num}.\n");
-                }
-            }
+            //Act
+            int actualoutput = testres.SetLength(l1);
 
-            return num;
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
         }
-        static void Main(string[] args)
+        [Test]
+        public void GetRetangleWidth_InputWidth199_expectedResultEquals199()
         {
-            Rectangleclass c = new Rectangleclass();
-            bool validRectangleSelect = false;
-            string RectangleSelection;
-            int input;
+            //Arrange
+            int l1 = 19;
+            int w1= 199;
+            int expectedoutput = w1;
+            Rectangleclass testres = new Rectangleclass(l1, w1);
 
-            while (validRectangleSelect == false)
-            {
-                Console.WriteLine("1 = Create default Rectangle of (1 unit x 1 unit)\n");
-                Console.WriteLine("2 = Choose your custom numbers\n");
-                Console.WriteLine("Choose a menu item to begin:");
-                RectangleSelection = Console.ReadLine();
-                Console.WriteLine();
+            //Act
+            int actualoutput = testres.GetWidth();
 
-                if (RectangleSelection != "1" && RectangleSelection != "2")
-                {
-                    Console.WriteLine("That's not a valid selection, please try again.\n");
-                }
-                else if (int.Parse(RectangleSelection) == 1)
-                {
-                    validRectangleSelect = true;  
-                    int length=1;
-                    int width=1;
-                    Console.WriteLine($"Your default rectangle is {length} x {width}\n");
-                }
-                else if (int.Parse(RectangleSelection) == 2)
-                {
-                    validRectangleSelect = true;
-                    int length;
-                    int width;
-                    length = ValidateInput("length");
-                    width = ValidateInput("width");
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
+        }
+        [Test]
+        public void SetRectangleWidth_InputWidth26_expectedResultEquals26()
+        {
+            //Arrange
+            int l1 = 10;
+            int w1 = 26;
+            int expectedoutput=w1;
+            Rectangleclass testres = new Rectangleclass(l1, w1);
 
-                    Console.WriteLine($"Your custom Rectangle is {length} and {width}.\n");
-                    Rectangleclass customRectangle = new Rectangleclass(length, width);
-                    c = customRectangle;
-                }
-            }
-            
-            input = ValidateSelection();
-            while (input != 7)
-            {
-                int result;
-                switch (input)
-                {
-                    case 1:
-                        Console.WriteLine($"Length is: {c.GetLength()}\n");
-                        break;
-                    case 2:
-                        result = ValidateInput("length");
-                        c.SetLength(result);
-                        break;
-                    case 3:
-                        Console.WriteLine($"Width  is: {c.GetWidth()}\n");
-                        break;
-                    case 4:
-                        result = ValidateInput("width");
-                        c.SetWidth(result);
-                        break;
-                    case 5:
-                        Console.WriteLine($"Perimeter of Rectangle is: {c.GetPerimeter()}\n");
-                        break;
-                    case 6:
-                        Console.WriteLine($"Area of Rectangle is: {c.GetArea()}\n");
-                        break;
-                    default:
-                        break;
-                }
-                  input = ValidateSelection();
-            }
+            //Act
+            int actualoutput = testres.SetWidth(w1);
 
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
+        }
+        [Test]
+        public void GetRectanglrPerimeter_Length10Width20_expectedResultEquals60()
+        {
+            //Arrange
+            int l1 = 10;
+            int w1 = 20;
+            int p = 2 * (l1 + w1);
+            int expectedoutput = p;
+            Rectangleclass testres = new Rectangleclass(l1, w1);
+
+            //Act
+            int actualoutput = testres.GetPerimeter();
+
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
+        }
+        [Test]
+        public void GetRectangleArea_Length12Width11_expectedResultEquals132()
+        {
+            //Arrange
+            int l1 = 12;
+            int w1 = 10;
+            int a = (l1 * w1);
+            int expectedoutput = a;
+            Rectangleclass testres = new Rectangleclass(l1, w1);
+
+            //Act
+            int actualoutput = testres.GetArea();
+
+            //Assert
+            Assert.AreEqual(expectedoutput, actualoutput);
         }
     }
 }
